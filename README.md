@@ -6,6 +6,10 @@
 
 Download and install docker-compose. After `docker compose up`, setup the database:
 
+```bash
+docker-compose run app bash -c 'app/console doctrine:database:create --no-interaction && app/console doctrine:migrations:migrate --no-interaction && app/console doctrine:fixtures:load --no-interaction'
+```
+
 Go to `http://localhost:8000/#/?import=/swagger/service-desk/v1.yml` to get a Swagger Editor where yoou can try out the API.
 
 You'll need the following token:
