@@ -1,7 +1,7 @@
 security:
     firewalls:
         default:
-            pattern: ^/ggggg
+            pattern: ^/
             stateless: true
             simple_preauth:
                 authenticator: jwt.authenticator
@@ -15,4 +15,4 @@ security:
                         roles: 'IS_AUTHENTICATED_FULLY'
 
     access_control:
-        - { path: ^/ggggg, roles: IS_AUTHENTICATED_FULLY }
+        - { path: ^/, roles: IS_AUTHENTICATED_FULLY }
