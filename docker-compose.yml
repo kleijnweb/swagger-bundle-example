@@ -1,0 +1,37 @@
+mysql:
+  image: mysql:5.5
+  hostname: mysql.local
+  environment:
+    - MYSQL_ROOT_PASSWORD=root
+  ports:
+    - "3306:3306"
+
+memcached:
+  image: memcached:1.4.24
+  hostname: memcached.local
+  ports:
+    - "1121:1121"
+
+app:
+  hostname: swagger-example-fpm.local
+  build: .
+  links:
+   - mysql:mysql.local
+   - memcached:memcached.local
+  volumes:
+    - .:/var/www/html
+
+editor:
+  image: swaggerapi/swagger-editor
+  hostname: editor.local
+
+nginx:
+  image: nginx
+  hostname: swagger-example.local
+  links:
+   - app:swagger-example-fpm.local
+   - editor:editor.local
+  volumes:
+    - ./docker:/etc/nginx
+  ports:
+    - "8000:80"

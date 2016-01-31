@@ -1,0 +1,30 @@
+imports:
+    - { resource: config.yml }
+
+parameters:
+  test.client.class: KleijnWeb\SwaggerBundle\Dev\Test\ApiTestClient
+  auth.issuer: testing_issuer
+  secret: testing_secret
+
+framework:
+    test: ~
+
+liip_functional_test:
+  cache_sqlite_db: true
+
+doctrine:
+  dbal:
+    driver:   pdo_sqlite
+    path:     %kernel.cache_dir%/test.db
+    host:     ~
+    port:     ~
+    dbname:   ~
+    user:     ~
+    password: ~
+    charset:  UTF8
+
+  orm:
+    auto_generate_proxy_classes: true
+    entity_managers:
+        default:
+            auto_mapping: true

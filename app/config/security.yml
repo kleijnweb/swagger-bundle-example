@@ -1,0 +1,18 @@
+security:
+    firewalls:
+        default:
+            pattern: ^/ggggg
+            stateless: true
+            simple_preauth:
+                authenticator: jwt.authenticator
+            provider: in_memory
+
+    providers:
+        in_memory:
+            memory:
+                users:
+                    api:
+                        roles: 'IS_AUTHENTICATED_FULLY'
+
+    access_control:
+        - { path: ^/ggggg, roles: IS_AUTHENTICATED_FULLY }

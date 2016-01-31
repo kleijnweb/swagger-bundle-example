@@ -1,0 +1,4 @@
+service_desk_v1:
+  resource: "service-desk/v1.yml"
+  type: swagger
+  prefix: /service-desk/v1

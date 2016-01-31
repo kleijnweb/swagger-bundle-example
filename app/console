@@ -1,0 +1,37 @@
+#!/usr/bin/env php
+<?php
+/*
+ * This file is part of the kleijnweb/swagger-bundle-example package.
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
+set_time_limit(0);
+
+require_once __DIR__ . '/autoload.php';
+require_once __DIR__ . '/AppKernel.php';
+
+use Symfony\Bundle\FrameworkBundle\Console\Application;
+use Symfony\Component\Console\Input\ArgvInput;
+use Dotenv\Dotenv;
+use Symfony\Component\Debug\Debug;
+
+$dotenv = new Dotenv(__DIR__ . '/../');
+$dotenv->load();
+
+$input = new ArgvInput();
+
+$env = $input->getParameterOption(['--env', '-e'], getenv('SYMFONY_ENV') ?: 'dev');
+if ($env == 'dev') {
+    umask(0000);
+}
+$debug = getenv('SYMFONY_DEBUG') !== '0' && !$input->hasParameterOption(['--no-debug', '']) && $env !== 'prod';
+
+if ($debug) {
+    Debug::enable();
+}
+
+$kernel = new AppKernel($env, $debug);
+$application = new Application($kernel);
+$application->run($input);

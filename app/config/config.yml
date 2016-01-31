@@ -1,0 +1,64 @@
+imports:
+  - { resource: services.yml }
+  - { resource: security.yml }
+
+framework:
+  secret: %secret%
+  router:
+    resource: "%kernel.root_dir%/config/routing.yml"
+    strict_requirements: %kernel.debug%
+  profiler:
+    enabled: false
+
+swagger:
+  dev: %kernel.debug%
+  document:
+    base_path: "%kernel.root_dir%/../web/swagger"
+  serializer:
+      type: jms
+      namespace: KleijnWeb\Examples\SwaggerBundle\ServiceDeskBundle\Entity
+
+rest_e_tags:
+  cache: cache.etags
+
+jwt:
+ keys:
+    default:
+      issuer: "%auth.issuer%"
+      secret: "%secret%"
+    keyTwo:
+      issuer: "%auth.issuer%"
+      type: RS256
+      secret: |
+              -----BEGIN PUBLIC KEY-----
+              MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAwND1VMVJ3BC/aM38tQRH
+              2GDHecXE8EsGoeAeBR5dFt3QC1/Eoub/F2kee3RBtI6I+kDBjrSDz5lsqh3Sm7N/
+              47fTKZLvdBaHbCuYXVBQ2tZeEiUBESnsY2HUzXDlqSyDWohuiYeeL6gewxe1CnSE
+              0l8gYZ0Tx4ViPFYulva6siew0f4tBuSEwSPiKZQnGcssQYJ/VevTD6L4wGoDhkXV
+              VvJ+qiNgmXXssgCl5vHs22y/RIgeOnDhkj81aB9Evx9iR7DOtyRBxnovrbN5gDwX
+              m6IDw3fRhZQrVwZ816/eN+1sqpIMZF4oo4kRA4b64U04ex67A/6BwDDQ3LH0mD4d
+              EwIDAQAB
+              -----END PUBLIC KEY-----
+
+# Doctrine Configuration
+doctrine:
+  dbal:
+    driver:   pdo_mysql
+    host:     "%database.host%"
+    port:     "%database.port%"
+    dbname:   "%database.name%"
+    user:     "%database.user%"
+    password: "%database.password%"
+    charset:  UTF8
+
+  orm:
+    auto_generate_proxy_classes: true
+    entity_managers:
+      default:
+          auto_mapping: true
+monolog:
+  handlers:
+    stderr:
+      type:  stream
+      path:  php://stderr
+      level: %log_level%

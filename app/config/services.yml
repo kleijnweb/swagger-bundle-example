@@ -1,0 +1,15 @@
+services:
+  cache.etags:
+    class: Doctrine\Common\Cache\MemcachedCache
+    calls:
+      - [ setNamespace, ['etags'] ]
+      - [ setMemcached, ['@cache.memcached'] ]
+
+  cache.memcached:
+    class: Memcached
+    calls:
+        - [ addServer, [ %memcached.server%, 11211 ]]
+
+  swagger.controller.ticket:
+    class: KleijnWeb\Examples\SwaggerBundle\ServiceDeskBundle\Controller\TicketController
+    arguments: ['@doctrine']
