@@ -1,4 +1,4 @@
-# Symfony Bundle Example [![Build Status](https://travis-ci.org/kleijnweb/swagger-bundle-example.svg?branch=master)](https://travis-ci.org/kleijnweb/swagger-bundle-example) 
+# KleijnWeb\SwaggerBundle Example [![Build Status](https://travis-ci.org/kleijnweb/swagger-bundle-example.svg?branch=master)](https://travis-ci.org/kleijnweb/swagger-bundle-example) 
 
 "Kitchen Sink" example for SwaggerBundle with support for E-Tags and JWT.
 
