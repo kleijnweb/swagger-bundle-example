@@ -1,4 +1,6 @@
-# KleijnWeb\SwaggerBundle Example [![Build Status](https://travis-ci.org/kleijnweb/swagger-bundle-example.svg?branch=master)](https://travis-ci.org/kleijnweb/swagger-bundle-example) 
+# KleijnWeb\SwaggerBundle Example 
+[![Build Status](https://travis-ci.org/kleijnweb/swagger-bundle-example.svg?branch=master)](https://travis-ci.org/kleijnweb/swagger-bundle-example) 
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/kleijnweb/swagger-bundle-example/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/kleijnweb/swagger-bundle-example/?branch=master)
 
 "Kitchen Sink" example for [SwaggerBundle](https://github.com/kleijnweb/swagger-bundle) with [support for E-Tags](https://github.com/kleijnweb/rest-e-tag-bundle) and [JWT](https://github.com/kleijnweb/jwt-bundle).
 
