@@ -11,9 +11,9 @@ framework:
     enabled: false
 
 swagger:
-  dev: %kernel.debug%
   document:
     base_path: "%kernel.root_dir%/../web/swagger"
+    cache: cache.documents
   serializer:
       type: jms
       namespace: KleijnWeb\Examples\SwaggerBundle\ServiceDeskBundle\Entity

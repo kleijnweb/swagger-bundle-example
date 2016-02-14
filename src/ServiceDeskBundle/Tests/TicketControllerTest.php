@@ -7,7 +7,7 @@
  */
 namespace KleijnWeb\Examples\SwaggerBundle\ServiceDeskBundle\Tests;
 
-use KleijnWeb\SwaggerBundle\Dev\Test\ApiTestCase;
+use KleijnWeb\SwaggerBundle\Test\ApiTestCase;
 use Liip\FunctionalTestBundle\Test\WebTestCase;
 
 /**

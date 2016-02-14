@@ -5,6 +5,12 @@ services:
       - [ setNamespace, ['etags'] ]
       - [ setMemcached, ['@cache.memcached'] ]
 
+  cache.documents:
+    class: Doctrine\Common\Cache\MemcachedCache
+    calls:
+      - [ setNamespace, ['documents'] ]
+      - [ setMemcached, ['@cache.memcached'] ]
+
   cache.memcached:
     class: Memcached
     calls:
