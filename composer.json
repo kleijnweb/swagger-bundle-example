@@ -16,7 +16,7 @@
   "require": {
     "php": ">=5.4.0",
     "symfony/framework-bundle": "^2.7",
-    "kleijnweb/swagger-bundle": "^2.2",
+    "kleijnweb/swagger-bundle": "3.0.x@dev",
     "kleijnweb/jwt-bundle": "^0.9.1",
     "kleijnweb/rest-e-tag-bundle": ">=0.9",
     "symfony/monolog-bundle": "~2.6",
