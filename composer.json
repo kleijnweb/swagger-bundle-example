@@ -14,7 +14,7 @@
     "psr-4": {"KleijnWeb\\Examples\\SwaggerBundle\\": "src/"}
   },
   "require": {
-    "php": ">=5.4.0",
+    "php": ">=5.5.9",
     "symfony/framework-bundle": "^2.7",
     "kleijnweb/swagger-bundle": "^3.0",
     "kleijnweb/jwt-bundle": "^0.9.1",
