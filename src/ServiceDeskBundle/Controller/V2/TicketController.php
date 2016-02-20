@@ -13,7 +13,6 @@ use KleijnWeb\Examples\SwaggerBundle\ServiceDeskBundle\Entity\TicketReplaceReque
 use KleijnWeb\Examples\SwaggerBundle\ServiceDeskBundle\Entity\TicketUpdateRequest;
 use KleijnWeb\Examples\SwaggerBundle\ServiceDeskBundle\Service\JsonApi\JmsSerializerSerializer;
 use KleijnWeb\Examples\SwaggerBundle\ServiceDeskBundle\Service\Entity\TicketService;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Tobscure\JsonApi\Document;
 use Tobscure\JsonApi\Collection;
 use Tobscure\JsonApi\Resource;
@@ -68,46 +67,42 @@ class TicketController
     /**
      * @param integer $id
      *
-     * @return Resource
+     * @return Ticket
      */
     public function get($id)
     {
-        return new Resource($this->service->find($id), $this->serializer);
+        return $this->service->find($id);
     }
 
     /**
      * @param TicketCreationRequest $ticketRequest
      *
-     * @return Resource
+     * @return Ticket
      */
     public function post(TicketCreationRequest $ticketRequest)
     {
-        $ticket = $this->service->create(
+        return $this->service->create(
             $ticketRequest
                 ->getData()
                 ->getTicket()
         );
-
-        return new Resource($ticket, $this->serializer);
     }
 
     /**
      * @param TicketReplaceRequest $ticketRequest
      *
-     * @return Resource
+     * @return Ticket
      */
     public function put(TicketReplaceRequest $ticketRequest)
     {
-        $ticket = $this->service->update($ticketRequest->getData()->getTicket());
-
-        return new Resource($ticket, $this->serializer);
+        return $this->service->update($ticketRequest->getData()->getTicket());
     }
 
     /**
      * @param string              $id
      * @param TicketUpdateRequest $ticketRequest
      *
-     * @return Resource
+     * @return Ticket
      */
     public function patch($id, TicketUpdateRequest $ticketRequest)
     {
@@ -117,7 +112,7 @@ class TicketController
             $ticket->$setterName($value);
         }
 
-        return new Resource($this->service->update($ticket), $this->serializer);
+        return $this->service->update($ticket);
     }
 
     /**

@@ -34,6 +34,7 @@ services:
 
   example.kernel.listener.swagger.view:
     class: KleijnWeb\Examples\SwaggerBundle\ServiceDeskBundle\EventListener\ViewListener
+    arguments: ['@swagger.document.repository', '@example.json_api.serializer']
     tags:
       - { name: kernel.event_listener, event: kernel.view, method: onKernelView, priority: 100 }
 
@@ -48,7 +49,3 @@ services:
     arguments: ['@logger']
     tags:
       - { name: kernel.event_listener, event: kernel.exception, method: onKernelException, priority: 100 }
-
-  swagger.serializer.type_resolver:
-    class:   KleijnWeb\SwaggerBundle\Serializer\SerializationTypeResolver
-    arguments: [%swagger.serializer.namespace%]

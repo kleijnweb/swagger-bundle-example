@@ -40,11 +40,6 @@ class RequestListener
         $request = $event->getRequest();
 
         if ($request->getContent()) {
-            /**
-             * Temporary
-             * @see https://github.com/kleijnweb/swagger-bundle/issues/59
-             * @see https://github.com/kleijnweb/swagger-bundle/issues/61
-             */
             $document = $this->documentRepository->get($request->attributes->get('_definition'));
 
             switch ($document->getDefinition()->info->version) {

@@ -39,10 +39,6 @@ class ResponseListener
         $request = $event->getRequest();
         $headers = $event->getResponse()->headers;
 
-        /**
-         * Temporary
-         * @see https://github.com/kleijnweb/swagger-bundle/issues/59
-         */
         $document = $this->documentRepository->get($request->attributes->get('_definition'));
 
         switch ($document->getDefinition()->info->version) {
