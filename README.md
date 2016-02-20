@@ -25,9 +25,9 @@ To play around with JWT tokens, use [jwt.io](http://jwt.io/).
 This example includes two examples of a fictional "Service Desk API".
 
 1. v1: Basic example using JMS serializer and a basic REST API
-2. v2: Simplified example of combining JMS serializer with tobscure/json-api for JSON-API responses (not a fully compliant server)
+2. v2: Simplified example of combining JMS serializer with tobscure/json-api for JSON-API responses (not a fully compliant server, pretty close though)
 
-Example 2 adds a lot of boilerplate, negating some of the benefits of using SwaggerBundle. Future versions will have integrated JSON-API support.
+Example 2 adds a lot of boilerplate, negating some of the benefits of using SwaggerBundle. Future versions will have integrated (fully compliant) JSON-API support.
 
 In general, anything not in a controller or a service has a good change to make it into a future release of SwaggerBundle.
 
