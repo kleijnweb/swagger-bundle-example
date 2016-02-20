@@ -5,7 +5,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace KleijnWeb\Examples\SwaggerBundle\ServiceDeskBundle\Controller;
+namespace KleijnWeb\Examples\SwaggerBundle\ServiceDeskBundle\Service\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManager;
@@ -16,7 +16,7 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 /**
  * @author John Kleijn <john@kleijnweb.nl>
  */
-class TicketController
+class TicketService
 {
     const ENTITY_CLASS = 'KleijnWeb\Examples\SwaggerBundle\ServiceDeskBundle\Entity\Ticket';
 
@@ -66,21 +66,11 @@ class TicketController
     }
 
     /**
-     * @param integer $id
-     *
-     * @return Ticket
-     */
-    public function get($id)
-    {
-        return $this->findTicket($id);
-    }
-
-    /**
      * @param Ticket $ticket
      *
      * @return Ticket
      */
-    public function post(Ticket $ticket)
+    public function create(Ticket $ticket)
     {
         $this->entityManager->persist($ticket);
         $this->entityManager->flush();
@@ -95,12 +85,12 @@ class TicketController
      *
      * @return Ticket
      */
-    public function put(Ticket $ticket)
+    public function update(Ticket $ticket)
     {
         $this->entityManager->merge($ticket);
         $this->entityManager->flush();
 
-        return $this->findTicket($ticket->getId());
+        return $this->find($ticket->getId());
     }
 
     /**
@@ -108,9 +98,9 @@ class TicketController
      *
      * @return null
      */
-    public function delete($id)
+    public function deleteById($id)
     {
-        $this->entityManager->remove($this->findTicket($id));
+        $this->entityManager->remove($this->find($id));
         $this->entityManager->flush();
 
         return null;
@@ -123,27 +113,16 @@ class TicketController
      */
     public function findByTicketNumber($ticketNumber)
     {
-        /** @var Ticket */
-        if (!$ticket = $this->repository->findOneBy(['ticketNumber' => $ticketNumber])) {
-            throw new NotFoundHttpException;
-        }
-
-        return $ticket;
+        return $this->repository->findOneBy(['ticketNumber' => $ticketNumber]);
     }
-
 
     /**
      * @param integer $id
      *
      * @return Ticket
      */
-    private function findTicket($id)
+    public function find($id)
     {
-        /** @var Ticket */
-        if (!$ticket = $this->repository->find($id)) {
-            throw new NotFoundHttpException;
-        }
-
-        return $ticket;
+        return $this->repository->find($id);
     }
 }

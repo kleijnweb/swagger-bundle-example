@@ -13,7 +13,7 @@ use Liip\FunctionalTestBundle\Test\WebTestCase;
 /**
  * @author John Kleijn <john@kleijnweb.nl>
  */
-class TicketControllerTest extends WebTestCase
+class ServiceDeskApiV1Test extends WebTestCase
 {
     // @codingStandardsIgnoreStart
     const PSK_TOKEN = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6ImRlZmF1bHQifQ.eyJpc3MiOiJ0ZXN0aW5nX2lzc3VlciIsInBybiI6ImFwaSJ9.o4tBedoktxALvXKRR3_M3Hq2XUMAwHiUTr2sK85yehQ';

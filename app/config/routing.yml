@@ -2,3 +2,8 @@ service_desk_v1:
   resource: "service-desk/v1.yml"
   type: swagger
   prefix: /service-desk/v1
+
+service_desk_v2:
+  resource: "service-desk/v2.yml"
+  type: swagger
+  prefix: /service-desk/v2

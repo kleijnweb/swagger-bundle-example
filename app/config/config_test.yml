@@ -5,6 +5,14 @@ parameters:
   auth.issuer: testing_issuer
   secret: testing_secret
 
+services:
+  cache.array:
+    class: Doctrine\Common\Cache\ArrayCache
+
+swagger:
+  document:
+    cache: cache.array
+
 framework:
     test: ~
 

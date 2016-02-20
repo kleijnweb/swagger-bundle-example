@@ -58,6 +58,7 @@ class AppKernel extends Kernel
      */
     public function getCacheDir()
     {
+        return parent::getCacheDir();
         return "/tmp/cache/{$this->getName()}/{$this->getEnvironment()}";
     }
 

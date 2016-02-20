@@ -1,4 +1,10 @@
 <?php
+/*
+ * This file is part of the kleijnweb/swagger-bundle-example package.
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
 namespace KleijnWeb\Examples\SwaggerBundle\ServiceDeskBundle\Entity;
 
 use JMS\Serializer\Annotation\Type;
@@ -7,8 +13,9 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * @ORM\Entity
  * @ORM\HasLifecycleCallbacks()
+ * @author John Kleijn <john@kleijnweb.nl>
  */
-class Ticket
+class Ticket implements \IteratorAggregate
 {
     /**
      * @var integer
@@ -253,5 +260,13 @@ class Ticket
     public function generateTicketNumber()
     {
         $this->ticketNumber = date('\TY.m.' . sprintf("%05d", $this->id));
+    }
+
+    /**
+     * @return \ArrayIterator
+     */
+    public function getIterator()
+    {
+        return new \ArrayIterator(get_object_vars($this));
     }
 }

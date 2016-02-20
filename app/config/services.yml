@@ -16,6 +16,39 @@ services:
     calls:
         - [ addServer, [ %memcached.server%, 11211 ]]
 
-  swagger.controller.ticket:
-    class: KleijnWeb\Examples\SwaggerBundle\ServiceDeskBundle\Controller\TicketController
+  example.entity_service.ticket:
+    class: KleijnWeb\Examples\SwaggerBundle\ServiceDeskBundle\Service\Entity\TicketService
     arguments: ['@doctrine']
+
+  example.json_api.serializer:
+    class: KleijnWeb\Examples\SwaggerBundle\ServiceDeskBundle\Service\JsonApi\JmsSerializerSerializer
+    arguments: ['@swagger.serializer.jms']
+
+  swagger.controller.ticket:
+    class: KleijnWeb\Examples\SwaggerBundle\ServiceDeskBundle\Controller\V1\TicketController
+    arguments: ['@example.entity_service.ticket']
+
+  swagger.controller.v2.ticket:
+    class: KleijnWeb\Examples\SwaggerBundle\ServiceDeskBundle\Controller\V2\TicketController
+    arguments: ['@example.entity_service.ticket', '@example.json_api.serializer']
+
+  example.kernel.listener.swagger.view:
+    class: KleijnWeb\Examples\SwaggerBundle\ServiceDeskBundle\EventListener\ViewListener
+    tags:
+      - { name: kernel.event_listener, event: kernel.view, method: onKernelView, priority: 100 }
+
+  example.kernel.listener.swagger.response:
+    class: KleijnWeb\Examples\SwaggerBundle\ServiceDeskBundle\EventListener\ResponseListener
+    arguments: ['@swagger.document.repository']
+    tags:
+      - { name: kernel.event_listener, event: kernel.response, method: onKernelResponse, priority: -100 }
+
+  example.kernel.listener.swagger.exception:
+    class: KleijnWeb\Examples\SwaggerBundle\ServiceDeskBundle\EventListener\JsonApiErrorExceptionListener
+    arguments: ['@logger']
+    tags:
+      - { name: kernel.event_listener, event: kernel.exception, method: onKernelException, priority: 100 }
+
+  swagger.serializer.type_resolver:
+    class:   KleijnWeb\SwaggerBundle\Serializer\SerializationTypeResolver
+    arguments: [%swagger.serializer.namespace%]
