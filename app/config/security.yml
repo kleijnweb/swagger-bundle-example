@@ -1,19 +1,13 @@
 security:
   firewalls:
     default:
-      pattern: ^/(?!repository)
+      request_matcher: app.security.request_matcher
       stateless: true
       simple_preauth:
         authenticator: jwt.authenticator
-      provider: in_memory
+      provider: jwt
 
   providers:
-    in_memory:
-      memory:
-        users:
-          api:
-            roles: 'IS_AUTHENTICATED_FULLY'
+    jwt:
+      id: jwt.user_provider
 
-  access_control:
-    - { path: ^/, roles: IS_AUTHENTICATED_FULLY }
-    - { path: ^/repository, roles: IS_AUTHENTICATED_ANONYMOUSLY }

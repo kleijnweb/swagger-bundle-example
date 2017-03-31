@@ -36,8 +36,6 @@ paths:
     get:
       operationId: 'search'
       summary: 'Search for tickets'
-      security:
-        - api_key: []
       parameters:
         - in: query
           name: status

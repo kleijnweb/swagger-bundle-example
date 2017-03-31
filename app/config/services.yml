@@ -5,6 +5,10 @@ services:
       - [ setNamespace, ['documents'] ]
       - [ setMemcached, ['@cache.memcached'] ]
 
+  app.security.request_matcher:
+    class: KleijnWeb\Examples\SwaggerBundle\ServiceDeskBundle\Security\RequestMatcher
+    arguments: ['@swagger.description.repository']
+
   cache.memcached:
     class: Memcached
     calls:
