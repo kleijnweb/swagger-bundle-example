@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types = 1);
 /*
  * This file is part of the kleijnweb/swagger-bundle-example package.
  *
@@ -31,6 +31,5 @@ class TicketFixture extends AbstractFixture
         $manager->persist($incident);
 
         $manager->flush();
-
     }
 }

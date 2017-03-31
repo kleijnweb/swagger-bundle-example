@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types = 1);
 /*
  * This file is part of the kleijnweb/swagger-bundle-example package.
  *
@@ -15,25 +15,11 @@ use Liip\FunctionalTestBundle\Test\WebTestCase;
  */
 class ServiceDeskApiV1Test extends WebTestCase
 {
-    // @codingStandardsIgnoreStart
-    const PSK_TOKEN = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6ImRlZmF1bHQifQ.eyJpc3MiOiJ0ZXN0aW5nX2lzc3VlciIsInBybiI6ImFwaSJ9.o4tBedoktxALvXKRR3_M3Hq2XUMAwHiUTr2sK85yehQ';
-    // @codingStandardsIgnoreEnd
-
     use ApiTestCase;
-
-    /**
-     * Init response validation, point to your spec
-     */
-    public static function setUpBeforeClass()
-    {
-        static::initSchemaManager(__DIR__ . '/../../../web/swagger/service-desk/v1.yml');
-    }
 
     protected function setUp()
     {
-        $server = ['HTTP_AUTHORIZATION' => 'Bearer ' . self::PSK_TOKEN];
-        $this->client = static::createClient([], $server);
-        static::bootKernel();
+        $this->createApiTestClient();
         $this->loadFixtures([]);
     }
 

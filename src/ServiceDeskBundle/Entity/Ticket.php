@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types = 1);
 /*
  * This file is part of the kleijnweb/swagger-bundle-example package.
  *
@@ -7,7 +7,6 @@
  */
 namespace KleijnWeb\Examples\SwaggerBundle\ServiceDeskBundle\Entity;
 
-use JMS\Serializer\Annotation\Type;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -18,8 +17,6 @@ use Doctrine\ORM\Mapping as ORM;
 class Ticket implements \IteratorAggregate
 {
     /**
-     * @var integer
-     * @Type("integer")
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
@@ -27,57 +24,41 @@ class Ticket implements \IteratorAggregate
     private $id;
 
     /**
-     * @var string
-     * @Type("string")
      * @ORM\Column(name="status", type="string")
      */
     private $status = 'open';
 
     /**
-     * @var string
-     * @Type("string")
      * @ORM\Column(name="title", type="string")
      */
     private $title;
 
     /**
-     * @var string
-     * @Type("string")
      * @ORM\Column(name="ticketNumber", type="string", nullable=true, unique=true)
      */
     private $ticketNumber;
 
     /**
-     * @var string
-     * @Type("string")
      * @ORM\Column(name="description", type="text")
      */
     private $description;
 
     /**
-     * @var string
-     * @Type("string")
      * @ORM\Column(name="type", type="text")
      */
     private $type;
 
     /**
-     * @var string
-     * @Type("string")
      * @ORM\Column(name="priority", type="text")
      */
     private $priority = 'normal';
 
     /**
-     * @var \DateTime
-     * @Type("DateTime<'Y-m-d\TH:i:sP'>")
      * @ORM\Column(name="createdAt", type="datetime")
      */
     private $createdAt;
 
     /**
-     * @var \DateTime
-     * @Type("DateTime<'Y-m-d\TH:i:sP'>")
      * @ORM\Column(name="updatedAt", type="datetime", nullable=true)
      */
     private $updatedAt;

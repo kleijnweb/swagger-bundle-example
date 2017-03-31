@@ -6,25 +6,25 @@
          backupGlobals="false"
          processIsolation="false"
          colors="true"
-         bootstrap="phpunit.boot.php"
+         bootstrap="app/phpunit.boot.php"
         >
     <testsuites>
         <testsuite name="Default">
-            <directory>../src/*/Tests</directory>
+            <directory>src/*/Tests</directory>
         </testsuite>
     </testsuites>
 
-    <!--
+
     <php>
-        <server name="KERNEL_DIR" value="/path/to/your/app/" />
+        <server name="KERNEL_DIR" value="app/" />
     </php>
-    -->
+
     <filter>
         <whitelist>
-            <directory>../src</directory>
+            <directory>src</directory>
             <exclude>
-                <directory>../src/*/Resources</directory>
-                <directory>../src/*/Tests</directory>
+                <directory>src/*/Resources</directory>
+                <directory>src/*/Tests</directory>
             </exclude>
         </whitelist>
     </filter>

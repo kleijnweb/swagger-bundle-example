@@ -3,7 +3,6 @@ service_desk_v1:
   type: swagger
   prefix: /service-desk/v1
 
-service_desk_v2:
-  resource: "service-desk/v2.yml"
-  type: swagger
-  prefix: /service-desk/v2
+repository:
+  path:     /repository/{name}
+  defaults: { _controller: controller.repository:get }

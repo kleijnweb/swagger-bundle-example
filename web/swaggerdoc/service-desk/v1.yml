@@ -79,10 +79,11 @@ paths:
         - in: body
           name: ticket
           required: true
+          type: object
           schema:
             $ref: '#/definitions/Ticket'
       responses:
-        200:
+        201:
           description: 'Ticket data'
           schema:
             $ref: '#/definitions/Ticket'

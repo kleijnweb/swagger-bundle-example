@@ -6,31 +6,25 @@ mysql:
   ports:
     - "3306:3306"
 
-memcached:
-  image: memcached:1.4.24
-  hostname: memcached.local
-  ports:
-    - "1121:1121"
-
 app:
   hostname: swagger-example-fpm.local
   build: .
   links:
    - mysql:mysql.local
-   - memcached:memcached.local
   volumes:
     - .:/var/www/html
 
-editor:
-  image: swaggerapi/swagger-editor
-  hostname: editor.local
-
+ui:
+  image: schickling/swagger-ui
+  hostname: ui.local
+  environment:
+    - API_URL=http://localhost:8000/repository/service-desk
 nginx:
   image: nginx
   hostname: swagger-example.local
   links:
    - app:swagger-example-fpm.local
-   - editor:editor.local
+   - ui:ui.local
   volumes:
     - ./docker:/etc/nginx
   ports:

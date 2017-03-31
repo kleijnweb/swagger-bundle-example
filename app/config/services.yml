@@ -1,10 +1,4 @@
 services:
-  cache.etags:
-    class: Doctrine\Common\Cache\MemcachedCache
-    calls:
-      - [ setNamespace, ['etags'] ]
-      - [ setMemcached, ['@cache.memcached'] ]
-
   cache.documents:
     class: Doctrine\Common\Cache\MemcachedCache
     calls:
@@ -20,32 +14,10 @@ services:
     class: KleijnWeb\Examples\SwaggerBundle\ServiceDeskBundle\Service\Entity\TicketService
     arguments: ['@doctrine']
 
-  example.json_api.serializer:
-    class: KleijnWeb\Examples\SwaggerBundle\ServiceDeskBundle\Service\JsonApi\JmsSerializerSerializer
-    arguments: ['@swagger.serializer.jms']
+  controller.repository:
+    class: KleijnWeb\Examples\SwaggerBundle\ServiceDeskBundle\Controller\DescriptionRepositoryController
+    arguments: ['@swagger.description.repository']
 
   swagger.controller.ticket:
     class: KleijnWeb\Examples\SwaggerBundle\ServiceDeskBundle\Controller\V1\TicketController
     arguments: ['@example.entity_service.ticket']
-
-  swagger.controller.v2.ticket:
-    class: KleijnWeb\Examples\SwaggerBundle\ServiceDeskBundle\Controller\V2\TicketController
-    arguments: ['@example.entity_service.ticket', '@example.json_api.serializer']
-
-  example.kernel.listener.swagger.view:
-    class: KleijnWeb\Examples\SwaggerBundle\ServiceDeskBundle\EventListener\ViewListener
-    arguments: ['@swagger.document.repository', '@example.json_api.serializer']
-    tags:
-      - { name: kernel.event_listener, event: kernel.view, method: onKernelView, priority: 100 }
-
-  example.kernel.listener.swagger.response:
-    class: KleijnWeb\Examples\SwaggerBundle\ServiceDeskBundle\EventListener\ResponseListener
-    arguments: ['@swagger.document.repository']
-    tags:
-      - { name: kernel.event_listener, event: kernel.response, method: onKernelResponse, priority: -100 }
-
-  example.kernel.listener.swagger.exception:
-    class: KleijnWeb\Examples\SwaggerBundle\ServiceDeskBundle\EventListener\JsonApiErrorExceptionListener
-    arguments: ['@logger']
-    tags:
-      - { name: kernel.event_listener, event: kernel.exception, method: onKernelException, priority: 100 }

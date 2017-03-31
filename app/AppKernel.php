@@ -17,11 +17,8 @@ class AppKernel extends Kernel
     {
         $bundles = [
             new Symfony\Bundle\FrameworkBundle\FrameworkBundle(),
-            new Symfony\Bundle\SecurityBundle\SecurityBundle(),
             new Symfony\Bundle\MonologBundle\MonologBundle(),
             new KleijnWeb\SwaggerBundle\KleijnWebSwaggerBundle(),
-            new KleijnWeb\JwtBundle\KleijnWebJwtBundle(),
-            new KleijnWeb\RestETagBundle\KleijnWebRestETagBundle(),
             new Doctrine\Bundle\MigrationsBundle\DoctrineMigrationsBundle(),
             new \Doctrine\Bundle\DoctrineBundle\DoctrineBundle(),
             new KleijnWeb\Examples\SwaggerBundle\ServiceDeskBundle\ServiceDeskBundle()
@@ -51,15 +48,6 @@ class AppKernel extends Kernel
     {
         # Bogus
         return '/tmp';
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getCacheDir()
-    {
-        return parent::getCacheDir();
-        return "/tmp/cache/{$this->getName()}/{$this->getEnvironment()}";
     }
 
     /**
