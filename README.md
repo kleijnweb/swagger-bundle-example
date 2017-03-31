@@ -11,6 +11,9 @@ Download and install docker-compose. After `docker-compose up`, setup the databa
 ```bash
 docker-compose run app bash -c 'app/console doctrine:database:create --no-interaction && app/console doctrine:migrations:migrate --no-interaction && app/console doctrine:fixtures:load --no-interaction'
 ```
+
+Navigate to http://localhost:8000/ and you can play around with the API.
+
 ## License
 
 MIT
