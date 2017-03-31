@@ -8,6 +8,7 @@
 namespace KleijnWeb\Examples\SwaggerBundle\ServiceDeskBundle\Tests;
 
 use KleijnWeb\SwaggerBundle\Test\ApiTestCase;
+use KleijnWeb\SwaggerBundle\Test\ApiTestClient;
 use Liip\FunctionalTestBundle\Test\WebTestCase;
 
 /**
@@ -17,9 +18,18 @@ class ServiceDeskApiV1Test extends WebTestCase
 {
     use ApiTestCase;
 
+    // @codingStandardsIgnoreStart
+    const PSK_TOKEN = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6ImRlZmF1bHQifQ.eyJpc3MiOiJ0ZXN0aW5nX2lzc3VlciIsInBybiI6ImFwaSJ9.o4tBedoktxALvXKRR3_M3Hq2XUMAwHiUTr2sK85yehQ';
+    // @codingStandardsIgnoreEnd
+
     protected function setUp()
     {
-        $this->createApiTestClient();
+        $this->client = new ApiTestClient(
+            static::createClient(
+                ['environment' => $this->getEnv(), 'debug' => true],
+                ['HTTP_AUTHORIZATION' => 'Bearer ' . self::PSK_TOKEN]
+            )
+        );
         $this->loadFixtures([]);
     }
 
@@ -28,7 +38,7 @@ class ServiceDeskApiV1Test extends WebTestCase
      */
     public function canCreateTicket()
     {
-        $data = [
+        $data     = [
             'title'       => 'Help',
             'description' => 'It doesn\'t work',
             'type'        => 'bug-report'
@@ -64,7 +74,7 @@ class ServiceDeskApiV1Test extends WebTestCase
      */
     public function canUpdateTicket()
     {
-        $postResponse = $this->canCreateTicket();
+        $postResponse        = $this->canCreateTicket();
         $postResponse->title = "Updated title";
 
         $response = $this->put('/service-desk/v1/ticket/' . $postResponse->id, (array)$postResponse);
@@ -77,7 +87,7 @@ class ServiceDeskApiV1Test extends WebTestCase
      */
     public function updatedTicketWillHaveTimestamps()
     {
-        $postResponse = $this->canCreateTicket();
+        $postResponse        = $this->canCreateTicket();
         $postResponse->title = "Updated title";
 
         sleep(1);
@@ -121,7 +131,7 @@ class ServiceDeskApiV1Test extends WebTestCase
         $postResponse = $this->canCreateTicket();
 
         /** @var array $response */
-        $response = $this->get('/service-desk/v1/ticket', ['description'=> 'work']);
+        $response = $this->get('/service-desk/v1/ticket', ['description' => 'work']);
 
         $this->assertArrayHasKey(0, $response);
         $this->assertSame($postResponse->id, $response[0]->id);
@@ -135,7 +145,7 @@ class ServiceDeskApiV1Test extends WebTestCase
     {
         $postResponse = $this->canCreateTicket();
 
-        $response = $this->get('/service-desk/v1/ticket', ['status'=> 'open']);
+        $response = $this->get('/service-desk/v1/ticket', ['status' => 'open']);
 
         /** @var array $response */
         $this->assertArrayHasKey(0, $response);

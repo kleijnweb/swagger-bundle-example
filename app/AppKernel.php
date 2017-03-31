@@ -17,8 +17,10 @@ class AppKernel extends Kernel
     {
         $bundles = [
             new Symfony\Bundle\FrameworkBundle\FrameworkBundle(),
-            new Symfony\Bundle\MonologBundle\MonologBundle(),
             new KleijnWeb\SwaggerBundle\KleijnWebSwaggerBundle(),
+            new KleijnWeb\JwtBundle\KleijnWebJwtBundle(),
+            new Symfony\Bundle\SecurityBundle\SecurityBundle(),
+            new Symfony\Bundle\MonologBundle\MonologBundle(),
             new Doctrine\Bundle\MigrationsBundle\DoctrineMigrationsBundle(),
             new \Doctrine\Bundle\DoctrineBundle\DoctrineBundle(),
             new KleijnWeb\Examples\SwaggerBundle\ServiceDeskBundle\ServiceDeskBundle()

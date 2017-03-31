@@ -1,0 +1,19 @@
+security:
+  firewalls:
+    default:
+      pattern: ^/(?!repository)
+      stateless: true
+      simple_preauth:
+        authenticator: jwt.authenticator
+      provider: in_memory
+
+  providers:
+    in_memory:
+      memory:
+        users:
+          api:
+            roles: 'IS_AUTHENTICATED_FULLY'
+
+  access_control:
+    - { path: ^/, roles: IS_AUTHENTICATED_FULLY }
+    - { path: ^/repository, roles: IS_AUTHENTICATED_ANONYMOUSLY }
