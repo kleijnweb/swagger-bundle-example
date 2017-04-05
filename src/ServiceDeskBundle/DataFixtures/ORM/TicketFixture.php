@@ -22,14 +22,18 @@ class TicketFixture extends AbstractFixture
         $bug->setTitle('Does not work');
         $bug->setDescription('Nothing happens');
         $bug->setType('bug-report');
+        $bug->setOwner('john');
         $manager->persist($bug);
 
         $incident = new Ticket();
         $incident->setTitle('Server down :(');
         $incident->setDescription('Cannot SSH into server');
         $incident->setType('incident');
+        $incident->setOwner('john');
         $manager->persist($incident);
 
+        $manager->flush();
+        //Flush a second time for the ticket number
         $manager->flush();
     }
 }

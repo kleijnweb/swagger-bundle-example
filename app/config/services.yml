@@ -20,4 +20,11 @@ services:
 
   swagger.controller.ticket:
     class: KleijnWeb\Examples\SwaggerBundle\ServiceDeskBundle\Controller\V1\TicketController
-    arguments: ['@example.entity_service.ticket']
+    arguments: ['@example.entity_service.ticket', '@security.token_storage', '@security.authorization_checker']
+
+  example.security.ticket_owner_voter:
+    class: KleijnWeb\Examples\SwaggerBundle\ServiceDeskBundle\Security\TicketOwnerVoter
+    arguments: ['@security.access.decision_manager']
+    public: false
+    tags:
+       - { name: security.voter }

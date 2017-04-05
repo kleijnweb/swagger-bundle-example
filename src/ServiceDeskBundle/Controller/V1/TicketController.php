@@ -8,25 +8,46 @@
 namespace KleijnWeb\Examples\SwaggerBundle\ServiceDeskBundle\Controller\V1;
 
 use KleijnWeb\Examples\SwaggerBundle\ServiceDeskBundle\Entity\Ticket;
+use KleijnWeb\Examples\SwaggerBundle\ServiceDeskBundle\Security\TicketOwnerVoter;
 use KleijnWeb\Examples\SwaggerBundle\ServiceDeskBundle\Service\Entity\TicketService;
+use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
+use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * @author John Kleijn <john@kleijnweb.nl>
  */
 class TicketController
 {
+    const FORBIDDEN_MESSAGE = '';
+
     /**
      * @var TicketService
      */
     private $service;
 
     /**
-     * @param TicketService $service
+     * @var AuthorizationCheckerInterface
      */
-    public function __construct(TicketService $service)
+    private $authorizationChecker;
+
+    /**
+     * @var TokenStorageInterface
+     */
+    private $tokenStorage;
+
+    /**
+     * @param TicketService                 $service
+     * @param TokenStorageInterface         $tokenStorage
+     * @param AuthorizationCheckerInterface $authorizationChecker
+     */
+    public function __construct(TicketService $service, TokenStorageInterface $tokenStorage, AuthorizationCheckerInterface $authorizationChecker)
     {
-        $this->service = $service;
+        $this->service              = $service;
+        $this->authorizationChecker = $authorizationChecker;
+        $this->tokenStorage         = $tokenStorage;
     }
 
     /**
@@ -38,19 +59,11 @@ class TicketController
      *
      * @return array
      */
-    public function search($status = null, $title = null, $description = null, $type = null, $priority = null)
+    public function search(string $status = null, string $title = null, string $description = null, string $type = null, string $priority = null)
     {
-        return $this->service->search($status, $title, $description, $type, $priority);
-    }
+        $this->assertAllowed(TicketOwnerVoter::SEARCH);
 
-    /**
-     * @param integer $id
-     *
-     * @return Ticket
-     */
-    public function get($id)
-    {
-        return $this->service->find($id);
+        return $this->service->search($status, $title, $description, $type, $priority);
     }
 
     /**
@@ -60,7 +73,9 @@ class TicketController
      */
     public function post(Ticket $ticket)
     {
-        return $this->service->create($ticket);
+        $this->assertAllowed(TicketOwnerVoter::CREATE);
+
+        return $this->service->create($ticket, $this->getCurrentUserName());
     }
 
     /**
@@ -70,6 +85,8 @@ class TicketController
      */
     public function put(Ticket $ticket)
     {
+        $this->assertAllowed(TicketOwnerVoter::UPDATE, $ticket);
+
         return $this->service->update($ticket);
     }
 
@@ -78,8 +95,10 @@ class TicketController
      *
      * @return null
      */
-    public function delete($id)
+    public function delete(int $id)
     {
+        $this->assertAllowed(TicketOwnerVoter::DELETE, $id);
+
         $this->service->deleteById($id);
 
         return null;
@@ -90,8 +109,10 @@ class TicketController
      *
      * @return Ticket
      */
-    public function findByTicketNumber($ticketNumber)
+    public function findByTicketNumber(string $ticketNumber)
     {
+        $this->assertAllowed(TicketOwnerVoter::FETCH, $ticketNumber);
+
         /** @var Ticket */
         if (!$ticket = $this->service->findByTicketNumber($ticketNumber)) {
             throw new NotFoundHttpException;
@@ -99,4 +120,44 @@ class TicketController
 
         return $ticket;
     }
+
+    /**
+     * Unsecured operation
+     *
+     * @param integer $id
+     *
+     * @return Ticket
+     */
+    public function get(int $id)
+    {
+        $this->assertAllowed(TicketOwnerVoter::FETCH, $id);
+
+        return $this->service->find($id);
+    }
+
+    /**
+     * @param string            $operation
+     * @param Ticket|string|int $subject
+     */
+    private function assertAllowed(string $operation, $subject = null)
+    {
+        if (!$this->authorizationChecker->isGranted($operation, $subject)) {
+            throw new AccessDeniedHttpException(self::FORBIDDEN_MESSAGE);
+        }
+    }
+
+    private function getCurrentUserName(): string
+    {
+        if (null === $token = $this->tokenStorage->getToken()) {
+            return '';
+        }
+
+        /* @var $user UserInterface */
+        if (!is_object($user = $token->getUser())) {
+            // e.g. anonymous authentication
+            return '';
+        }
+        return $user->getUsername();
+    }
+
 }

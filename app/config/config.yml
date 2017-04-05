@@ -12,7 +12,7 @@ framework:
 
 swagger:
   document:
-    base_path: "%kernel.root_dir%/../web/swaggerdoc"
+    base_path: "%kernel.root_dir%/config/swagger"
     cache: cache.documents
   hydrator:
     namespaces: [KleijnWeb\Examples\SwaggerBundle\ServiceDeskBundle\Entity]
@@ -22,19 +22,6 @@ jwt:
     default:
       issuer: "%auth.issuer%"
       secret: "%secret%"
-    keyTwo:
-      issuer: "%auth.issuer%"
-      type: RS256
-      secret: |
-              -----BEGIN PUBLIC KEY-----
-              MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAwND1VMVJ3BC/aM38tQRH
-              2GDHecXE8EsGoeAeBR5dFt3QC1/Eoub/F2kee3RBtI6I+kDBjrSDz5lsqh3Sm7N/
-              47fTKZLvdBaHbCuYXVBQ2tZeEiUBESnsY2HUzXDlqSyDWohuiYeeL6gewxe1CnSE
-              0l8gYZ0Tx4ViPFYulva6siew0f4tBuSEwSPiKZQnGcssQYJ/VevTD6L4wGoDhkXV
-              VvJ+qiNgmXXssgCl5vHs22y/RIgeOnDhkj81aB9Evx9iR7DOtyRBxnovrbN5gDwX
-              m6IDw3fRhZQrVwZ816/eN+1sqpIMZF4oo4kRA4b64U04ex67A/6BwDDQ3LH0mD4d
-              EwIDAQAB
-              -----END PUBLIC KEY-----
 
 # Doctrine Configuration
 doctrine:

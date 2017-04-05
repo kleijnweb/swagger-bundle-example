@@ -34,6 +34,9 @@ responses:
 paths:
   /ticket:
     get:
+      security:
+        - api_key: []
+      x-rbac: ['user']
       operationId: 'search'
       summary: 'Search for tickets'
       parameters:
@@ -73,6 +76,7 @@ paths:
       description: "Create a new ticket"
       security:
         - api_key: []
+      x-rbac: ['user']
       parameters:
         - in: body
           name: ticket
@@ -95,8 +99,6 @@ paths:
     get:
       summary: 'Get a ticket'
       description: "Get ticket by id"
-      security:
-        - api_key: []
       parameters:
         - in: path
           name: id
@@ -119,6 +121,7 @@ paths:
       summary: 'Update a ticket'
       security:
         - api_key: []
+      x-rbac: ['user']
       parameters:
         - in: path
           name: id
@@ -147,8 +150,6 @@ paths:
       operationId: 'findByTicketNumber'
       summary: 'Get a ticket'
       description: "Get ticket by number"
-      security:
-        - api_key: []
       parameters:
         - in: path
           name: ticketNumber
@@ -169,9 +170,39 @@ paths:
           $ref: '#/responses/EntityNotFoundError'
         500:
           $ref: '#/responses/ServerError'
+  '/ticket/stats':
+    get:
+      security:
+        - api_key: []
+      x-rbac: ['admin']
+      description: "Get a summary of tickets by status"
+      responses:
+        200:
+          description: 'Ticket status summary'
+          schema:
+            $ref: '#/definitions/StatusSummary'
+        400:
+          $ref: '#/responses/InputError'
+        401:
+          $ref: '#/responses/UnauthorizedError'
+        404:
+          $ref: '#/responses/EntityNotFoundError'
+        500:
+          $ref: '#/responses/ServerError'
 
 definitions:
-
+  StatusSummary:
+    type: object
+    properties:
+      open:
+        type: integer
+        format: int64
+      in-progress:
+        type: integer
+        format: int64
+      closed:
+        type: integer
+        format: int64
   Ticket:
     type: object
     required: [title, description, type]
@@ -191,8 +222,6 @@ definitions:
         description: 'Ticket title'
       description:
         type: string
-      status:
-        type: integer
       type:
         type: string
         enum: ['question', 'incident', 'service-request', 'bug-report']

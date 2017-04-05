@@ -29,6 +29,11 @@ class Ticket implements \IteratorAggregate
     private $status = 'open';
 
     /**
+     * @ORM\Column(name="owner", type="string")
+     */
+    private $owner;
+
+    /**
      * @ORM\Column(name="title", type="string")
      */
     private $title;
@@ -68,9 +73,29 @@ class Ticket implements \IteratorAggregate
      *
      * @return $this
      */
-    public function setId($id)
+    public function setId(int $id)
     {
         $this->id = $id;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getOwner(): string
+    {
+        return $this->owner;
+    }
+
+    /**
+     * @param string $owner
+     *
+     * @return Ticket
+     */
+    public function setOwner(string $owner)
+    {
+        $this->owner = $owner;
 
         return $this;
     }

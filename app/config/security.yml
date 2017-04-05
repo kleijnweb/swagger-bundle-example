@@ -5,9 +5,14 @@ security:
       stateless: true
       simple_preauth:
         authenticator: jwt.authenticator
-      provider: jwt
+        provider: jwt
+    anonymous:
+      anonymous: ~
 
   providers:
     jwt:
       id: jwt.user_provider
 
+  role_hierarchy:
+      ROLE_USER: [IS_AUTHENTICATED_FULLY]
+      ROLE_ADMIN: [ROLE_USER]
