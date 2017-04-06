@@ -3,9 +3,9 @@ security:
     default:
       request_matcher: swagger.security.request_matcher
       stateless: true
-      simple_preauth:
-        authenticator: jwt.authenticator
-        provider: jwt
+      swagger: { rbac: true }
+      jwt: ~
+      provider: jwt
     anonymous:
       anonymous: ~
 
