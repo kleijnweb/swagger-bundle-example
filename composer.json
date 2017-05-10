@@ -18,15 +18,17 @@
     "psr/log": "^1.0",
     "symfony/framework-bundle": ">=2.8.7",
     "kleijnweb/swagger-bundle": "dev-master",
+    "kleijnweb/jwt-bundle": "^1.0",
     "kleijnweb/php-api-descriptions": "dev-master",
     "kleijnweb/php-api-hydrator": "dev-master",
+    "kleijnweb/php-api-middleware": "dev-master",
+    "kleijnweb/php-api-routing-bundle": "dev-master",
     "symfony/monolog-bundle": "~2.6",
     "vlucas/phpdotenv": "~2.0",
     "doctrine/doctrine-migrations-bundle": "^1.0",
     "doctrine/doctrine-bundle": "^1.6",
     "doctrine/doctrine-fixtures-bundle": "^2.3",
-    "doctrine/orm": "^2.5",
-    "kleijnweb/jwt-bundle": "^1.0"
+    "doctrine/orm": "^2.5"
   },
   "require-dev": {
     "phpunit/phpunit": "^5.2",
