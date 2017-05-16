@@ -17,7 +17,7 @@
     "php": "^7.0.0",
     "psr/log": "^1.0",
     "symfony/framework-bundle": ">=2.8.7",
-    "kleijnweb/swagger-bundle": "dev-master",
+    "kleijnweb/swagger-bundle": "^v4.0.0-beta2",
     "kleijnweb/jwt-bundle": "^1.0",
     "kleijnweb/php-api-descriptions": "^1.0.0-alpha4",
     "kleijnweb/php-api-hydrator": "^1.0.0-alpha2",
