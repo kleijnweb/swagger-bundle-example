@@ -10,10 +10,10 @@ namespace KleijnWeb\Examples\SwaggerBundle\ServiceDeskBundle\Controller\V1;
 use KleijnWeb\Examples\SwaggerBundle\ServiceDeskBundle\Entity\Ticket;
 use KleijnWeb\Examples\SwaggerBundle\ServiceDeskBundle\Security\TicketOwnerVoter;
 use KleijnWeb\Examples\SwaggerBundle\ServiceDeskBundle\Service\Entity\TicketService;
-use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
@@ -142,7 +142,7 @@ class TicketController
     private function assertAllowed(string $operation, $subject = null)
     {
         if (!$this->authorizationChecker->isGranted($operation, $subject)) {
-            throw new AccessDeniedHttpException(self::FORBIDDEN_MESSAGE);
+            throw new AccessDeniedException(self::FORBIDDEN_MESSAGE);
         }
     }
 
