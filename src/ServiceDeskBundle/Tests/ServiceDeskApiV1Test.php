@@ -1,13 +1,13 @@
-<?php declare(strict_types = 1);
+<?php declare(strict_types=1);
 /*
  * This file is part of the kleijnweb/swagger-bundle-example package.
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace KleijnWeb\Examples\SwaggerBundle\ServiceDeskBundle\Tests;
 
-use KleijnWeb\Examples\SwaggerBundle\ServiceDeskBundle\Controller\V1\TicketController;
 use KleijnWeb\SwaggerBundle\Test\ApiResponseErrorException;
 use KleijnWeb\SwaggerBundle\Test\ApiTestCase;
 use KleijnWeb\SwaggerBundle\Test\ApiTestClient;
@@ -159,7 +159,8 @@ class ServiceDeskApiV1Test extends WebTestCase
         // Switch to using user token
         $this->createUserClient();
 
-        $this->setExpectedException(ApiResponseErrorException::class, TicketController::FORBIDDEN_MESSAGE);
+        $this->expectException(ApiResponseErrorException::class);
+        $this->expectExceptionCode(403);
 
         $response = $this->put('/service-desk/v1/ticket/' . $postResponse->id, (array)$postResponse);
 

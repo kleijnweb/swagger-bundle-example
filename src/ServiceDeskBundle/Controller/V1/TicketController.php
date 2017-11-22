@@ -21,8 +21,6 @@ use Symfony\Component\Security\Core\User\UserInterface;
  */
 class TicketController
 {
-    const FORBIDDEN_MESSAGE = '';
-
     /**
      * @var TicketService
      */
@@ -142,7 +140,7 @@ class TicketController
     private function assertAllowed(string $operation, $subject = null)
     {
         if (!$this->authorizationChecker->isGranted($operation, $subject)) {
-            throw new AccessDeniedException(self::FORBIDDEN_MESSAGE);
+            throw new AccessDeniedException();
         }
     }
 
